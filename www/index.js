@@ -1,4 +1,4 @@
-const wsUrl = 'ws://localhost:8081';
+const wsUrl = `${location.protocol === 'https:' ? 'wss:' : 'ws:'}//${location.host}/ws`;
 
 var users = [];
 var me = new XChatUser();
