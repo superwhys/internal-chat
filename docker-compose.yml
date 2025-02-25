@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  internal-chat:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    volumes:
+      - ./server/room_pwd.json:/app/room_pwd.json
+    ports:
+      - "8081:8081"
+    restart: always
+    command: npm run start 8081
