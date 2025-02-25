@@ -1,7 +1,6 @@
 version: '3'
 
 services:
-  # 后端服务
   internal-chat:
     container_name: internal-chat
     build:
@@ -9,14 +8,13 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./server/room_pwd.json:/app/room_pwd.json
-    expose:
-      - "8081"    # 只在内部网络暴露端口
+    ports:
+      - "8081:8081"
     restart: always
     command: npm run start 8081
     networks:
-      - app-network
+      - yong-network
 
-  # 前端nginx服务
   web:
     container_name: internal-chat-web
     image: nginx:alpine
@@ -24,13 +22,14 @@ services:
       - ./www:/usr/share/nginx/html
       - ./nginxvhost.conf:/etc/nginx/conf.d/default.conf
     ports:
-      - "8080:80"    # 对外暴露8080端口
+      - "8080:80"
     depends_on:
       - internal-chat
     restart: always
     networks:
-      - app-network
+      - yong-network
 
 networks:
-  app-network:
-    driver: bridge
+  yong-network:
+    external: true
+    name: yong-network
