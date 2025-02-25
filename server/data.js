@@ -46,7 +46,8 @@ function getKey(ip, roomId) {
     return roomId;
   }
   const isInternalNet = internalNet(ip);
-  return isInternalNet ? 'internal' : ip;
+  // 内网用户进入internal房间，所有外网用户进入external房间
+  return isInternalNet ? 'internal' : 'external';
 }
 
 function registerUser(ip, roomId, socket) {
