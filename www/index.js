@@ -1,4 +1,4 @@
-const wsUrl = 'wss://fddx.superwhys.top/ws';
+const wsUrl = 'ws://localhost:8081';
 
 var users = [];
 var me = new XChatUser();

@@ -1,6 +1,7 @@
 version: '3'
 
 services:
+  # 后端服务
   internal-chat:
     build:
       context: ./server
@@ -11,3 +12,15 @@ services:
       - "8081:8081"
     restart: always
     command: npm run start 8081
+
+  # 前端nginx服务
+  web:
+    image: nginx:alpine
+    volumes:
+      - ./www:/usr/share/nginx/html
+      - ./nginxvhost.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "8080:80"
+    depends_on:
+      - internal-chat
+    restart: always
